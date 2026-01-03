@@ -1,0 +1,37 @@
+{
+  "obstacles": [
+    {
+      "name": "table",
+      "position": [0.6, 0.0, 0.35],
+      "size": [0.6, 0.8, 0.02],
+      "rotation_euler": [0.0, 0.0, 0.0],
+      "color": [0.6, 0.4, 0.2, 0.8],
+      "base_frame": "base_link",
+      "collision_enabled": true,
+      "visible": true,
+      "pose_axis_visible": false
+    },
+    {
+      "name": "wall_left",
+      "position": [0.5, 0.5, 0.5],
+      "size": [0.02, 0.8, 1.0],
+      "rotation_euler": [0.0, 0.0, 0.0],
+      "color": [0.3, 0.3, 0.8, 0.6],
+      "base_frame": "base_link",
+      "collision_enabled": true,
+      "visible": true,
+      "pose_axis_visible": false
+    },
+    {
+      "name": "box_on_table",
+      "position": [0.5, 0.0, 0.45],
+      "size": [0.1, 0.1, 0.1],
+      "rotation_euler": [0.0, 0.0, 45.0],
+      "color": [0.8, 0.2, 0.2, 0.8],
+      "base_frame": "base_link",
+      "collision_enabled": true,
+      "visible": true,
+      "pose_axis_visible": true
+    }
+  ]
+}

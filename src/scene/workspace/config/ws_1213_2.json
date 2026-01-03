@@ -1,0 +1,116 @@
+{
+  "obstacles": [
+    {
+      "name": "obstacle_1",
+      "position": [
+        0.4,
+        0.7,
+        0.5
+      ],
+      "size": [
+        0.6,
+        1.3,
+        1.3
+      ],
+      "rotation_euler": [
+        0.0,
+        0.0,
+        45.00000000000001
+      ],
+      "color": [
+        0.8,
+        0.2,
+        0.2,
+        1.0
+      ],
+      "base_frame": "world",
+      "collision_enabled": true,
+      "visible": true,
+      "pose_axis_visible": false
+    },
+    {
+      "name": "obstacle_2",
+      "position": [
+        0.5,
+        -0.5,
+        0.5
+      ],
+      "size": [
+        0.55,
+        1.5,
+        1.3
+      ],
+      "rotation_euler": [
+        0.0,
+        0.0,
+        -45.00000000000001
+      ],
+      "color": [
+        0.8,
+        0.2,
+        0.2,
+        1.0
+      ],
+      "base_frame": "world",
+      "collision_enabled": true,
+      "visible": true,
+      "pose_axis_visible": false
+    },
+    {
+      "name": "obstacle_3",
+      "position": [
+        0.5,
+        0.6,
+        1.15
+      ],
+      "size": [
+        0.55,
+        0.4,
+        0.01
+      ],
+      "rotation_euler": [
+        0,
+        0,
+        45
+      ],
+      "color": [
+        0.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "base_frame": "world",
+      "collision_enabled": true,
+      "visible": true,
+      "pose_axis_visible": false
+    },
+    {
+      "name": "obstacle_4",
+      "position": [
+        0.28,
+        -0.43,
+        0.62
+      ],
+      "size": [
+        0.02,
+        0.02,
+        0.08
+      ],
+      "rotation_euler": [
+        -90,
+        84,
+        90
+      ],
+      "color": [
+        0.0,
+        1.0,
+        0.0,
+        1.0
+      ],
+      "base_frame": "AR5_5_07L_base",
+      "collision_enabled": false,
+      "visible": true,
+      "pose_axis_visible": true
+    }
+  ]
+}

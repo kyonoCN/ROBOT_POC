@@ -1,0 +1,508 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--This does not replace URDF, and is not an extension of URDF.
+    This is a format for representing semantic information about the robot structure.
+    A URDF file must exist for this robot as well, where the joints and the links that are referenced are defined
+-->
+<robot name="robot_model">
+    <!--GROUPS: Representation of a set of joints and links. This can be useful for specifying DOF to plan for, defining arms, end effectors, etc-->
+    <!--LINKS: When a link is specified, the parent joint of that link (if it exists) is automatically included-->
+    <!--JOINTS: When a joint is specified, the child link of that joint (which will always exist) is automatically included-->
+    <!--CHAINS: When a chain is specified, all the links along the chain (including endpoints) are included in the group. Additionally, all the joints that are parents to included links are also included. This means that joints along the chain and the parent joint of the base link are included in the group-->
+    <!--SUBGROUPS: Groups can also be formed by referencing to already defined group names-->
+    <group name="left_arm">
+        <chain base_link="AR5_5_07L_base" tip_link="AR5_5_07L_tcp"/>
+    </group>
+    <group name="right_arm">
+        <chain base_link="AR5_5_07R_base" tip_link="AR5_5_07R_tcp"/>
+    </group>
+    <group name="dual_arm">
+        <group name="left_arm"/>
+        <group name="right_arm"/>
+    </group>
+    <group name="torso">
+        <chain base_link="trunk_base_link" tip_link="Trunk_Link4"/>
+    </group>
+    <group name="torso_with_left_arm">
+        <group name="torso"/>
+        <group name="left_arm"/>
+    </group>
+    <group name="torso_with_right_arm">
+        <group name="torso"/>
+        <group name="right_arm"/>
+    </group>
+    <group name="torso_with_dual_arm">
+        <group name="torso"/>
+        <group name="left_arm"/>
+        <group name="right_arm"/>
+    </group>
+    <group name="head">
+        <chain base_link="Trunk_Link4" tip_link="Head_Link2"/>
+    </group>
+    <!--GROUP STATES: Purpose: Define a named state for a particular group, in terms of joint values. This is useful to define states like 'folded arms'-->
+    <group_state name="left_arm_home" group="left_arm">
+        <joint name="AR5_5_07L_joint_1" value="0"/>
+        <joint name="AR5_5_07L_joint_2" value="1.5708"/>
+        <joint name="AR5_5_07L_joint_3" value="0"/>
+        <joint name="AR5_5_07L_joint_4" value="0"/>
+        <joint name="AR5_5_07L_joint_5" value="0"/>
+        <joint name="AR5_5_07L_joint_6" value="0"/>
+        <joint name="AR5_5_07L_joint_7" value="0"/>
+    </group_state>
+    <group_state name="right_arm_home" group="right_arm">
+        <joint name="AR5_5_07R_joint_1" value="0"/>
+        <joint name="AR5_5_07R_joint_2" value="1.5708"/>
+        <joint name="AR5_5_07R_joint_3" value="0"/>
+        <joint name="AR5_5_07R_joint_4" value="0"/>
+        <joint name="AR5_5_07R_joint_5" value="0"/>
+        <joint name="AR5_5_07R_joint_6" value="0"/>
+        <joint name="AR5_5_07R_joint_7" value="0"/>
+    </group_state>
+    <group_state name="dual_arm_home" group="dual_arm">
+        <joint name="AR5_5_07L_joint_1" value="0"/>
+        <joint name="AR5_5_07L_joint_2" value="1.5708"/>
+        <joint name="AR5_5_07L_joint_3" value="0"/>
+        <joint name="AR5_5_07L_joint_4" value="0"/>
+        <joint name="AR5_5_07L_joint_5" value="0"/>
+        <joint name="AR5_5_07L_joint_6" value="0"/>
+        <joint name="AR5_5_07L_joint_7" value="0"/>
+        <joint name="AR5_5_07R_joint_1" value="0"/>
+        <joint name="AR5_5_07R_joint_2" value="1.5708"/>
+        <joint name="AR5_5_07R_joint_3" value="0"/>
+        <joint name="AR5_5_07R_joint_4" value="0"/>
+        <joint name="AR5_5_07R_joint_5" value="0"/>
+        <joint name="AR5_5_07R_joint_6" value="0"/>
+        <joint name="AR5_5_07R_joint_7" value="0"/>
+    </group_state>
+    <group_state name="torso_home" group="torso">
+        <joint name="Trunk_Joint1" value="0"/>
+        <joint name="Trunk_Joint2" value="0"/>
+        <joint name="Trunk_Joint3" value="0"/>
+        <joint name="Trunk_Joint4" value="0"/>
+    </group_state>
+    <group_state name="dual_arm_with_torso_home" group="torso_with_dual_arm">
+        <joint name="AR5_5_07L_joint_1" value="0"/>
+        <joint name="AR5_5_07L_joint_2" value="1.5708"/>
+        <joint name="AR5_5_07L_joint_3" value="0"/>
+        <joint name="AR5_5_07L_joint_4" value="0"/>
+        <joint name="AR5_5_07L_joint_5" value="0"/>
+        <joint name="AR5_5_07L_joint_6" value="0"/>
+        <joint name="AR5_5_07L_joint_7" value="0"/>
+        <joint name="AR5_5_07R_joint_1" value="0"/>
+        <joint name="AR5_5_07R_joint_2" value="1.5708"/>
+        <joint name="AR5_5_07R_joint_3" value="0"/>
+        <joint name="AR5_5_07R_joint_4" value="0"/>
+        <joint name="AR5_5_07R_joint_5" value="0"/>
+        <joint name="AR5_5_07R_joint_6" value="0"/>
+        <joint name="AR5_5_07R_joint_7" value="0"/>
+        <joint name="Trunk_Joint1" value="0"/>
+        <joint name="Trunk_Joint2" value="0"/>
+        <joint name="Trunk_Joint3" value="0"/>
+        <joint name="Trunk_Joint4" value="0"/>
+    </group_state>
+    <group_state name="head_home" group="head">
+        <joint name="Head_Joint1" value="0"/>
+        <joint name="Head_Joint2" value="0"/>
+    </group_state>
+    <!--DISABLE COLLISIONS: By default it is assumed that any link of the robot could potentially come into collision with any other link in the robot. This tag disables collision checking between a specified pair of links. -->
+    <disable_collisions link1="AR5_5_07L_base" link2="AR5_5_07L_link1" reason="Adjacent"/>
+    <disable_collisions link1="AR5_5_07L_base" link2="AR5_5_07L_link2" reason="Never"/>
+    <disable_collisions link1="AR5_5_07L_base" link2="AR5_5_07L_link3" reason="Never"/>
+    <disable_collisions link1="AR5_5_07L_base" link2="AR5_5_07L_link4" reason="Never"/>
+    <disable_collisions link1="AR5_5_07L_base" link2="AR5_5_07R_base" reason="Never"/>
+    <disable_collisions link1="AR5_5_07L_base" link2="AR5_5_07R_link1" reason="Never"/>
+    <disable_collisions link1="AR5_5_07L_base" link2="AR5_5_07R_link2" reason="Never"/>
+    <disable_collisions link1="AR5_5_07L_base" link2="AR5_5_07R_link3" reason="Never"/>
+    <disable_collisions link1="AR5_5_07L_base" link2="AR5_5_07R_link4" reason="Never"/>
+    <disable_collisions link1="AR5_5_07L_base" link2="AR5_5_07R_link5" reason="Never"/>
+    <disable_collisions link1="AR5_5_07L_base" link2="AR5_5_07R_link6" reason="Never"/>
+    <disable_collisions link1="AR5_5_07L_base" link2="Head_Link1" reason="Never"/>
+    <disable_collisions link1="AR5_5_07L_base" link2="Head_Link2" reason="Never"/>
+    <disable_collisions link1="AR5_5_07L_base" link2="Trunk_Link1" reason="Never"/>
+    <disable_collisions link1="AR5_5_07L_base" link2="Trunk_Link2" reason="Never"/>
+    <disable_collisions link1="AR5_5_07L_base" link2="Trunk_Link3" reason="Never"/>
+    <disable_collisions link1="AR5_5_07L_base" link2="Trunk_Link4" reason="Adjacent"/>
+    <disable_collisions link1="AR5_5_07L_base" link2="chassis_right_Link" reason="Never"/>
+    <disable_collisions link1="AR5_5_07L_base" link2="trunk_base_link" reason="Never"/>
+    <disable_collisions link1="AR5_5_07L_link1" link2="AR5_5_07L_link2" reason="Adjacent"/>
+    <disable_collisions link1="AR5_5_07L_link1" link2="AR5_5_07L_link3" reason="Never"/>
+    <disable_collisions link1="AR5_5_07L_link1" link2="AR5_5_07L_link4" reason="Never"/>
+    <disable_collisions link1="AR5_5_07L_link1" link2="AR5_5_07L_link5" reason="Never"/>
+    <disable_collisions link1="AR5_5_07L_link1" link2="AR5_5_07L_link6" reason="Never"/>
+    <disable_collisions link1="AR5_5_07L_link1" link2="AR5_5_07L_link7" reason="Never"/>
+    <disable_collisions link1="AR5_5_07L_link1" link2="AR5_5_07R_base" reason="Never"/>
+    <disable_collisions link1="AR5_5_07L_link1" link2="AR5_5_07R_link1" reason="Never"/>
+    <disable_collisions link1="AR5_5_07L_link1" link2="AR5_5_07R_link2" reason="Never"/>
+    <disable_collisions link1="AR5_5_07L_link1" link2="AR5_5_07R_link3" reason="Never"/>
+    <disable_collisions link1="AR5_5_07L_link1" link2="AR5_5_07R_link4" reason="Never"/>
+    <disable_collisions link1="AR5_5_07L_link1" link2="AR5_5_07R_link5" reason="Never"/>
+    <disable_collisions link1="AR5_5_07L_link1" link2="AR5_5_07R_link6" reason="Never"/>
+    <disable_collisions link1="AR5_5_07L_link1" link2="AR5_5_07R_link7" reason="Never"/>
+    <disable_collisions link1="AR5_5_07L_link1" link2="Head_Link1" reason="Never"/>
+    <disable_collisions link1="AR5_5_07L_link1" link2="Head_Link2" reason="Never"/>
+    <disable_collisions link1="AR5_5_07L_link1" link2="Lright_pad" reason="Never"/>
+    <disable_collisions link1="AR5_5_07L_link1" link2="Trunk_Link1" reason="Never"/>
+    <disable_collisions link1="AR5_5_07L_link1" link2="Trunk_Link2" reason="Never"/>
+    <disable_collisions link1="AR5_5_07L_link1" link2="Trunk_Link3" reason="Never"/>
+    <disable_collisions link1="AR5_5_07L_link1" link2="Trunk_Link4" reason="Never"/>
+    <disable_collisions link1="AR5_5_07L_link1" link2="chassis_right_Link" reason="Never"/>
+    <disable_collisions link1="AR5_5_07L_link1" link2="right_flange_link" reason="Never"/>
+    <disable_collisions link1="AR5_5_07L_link2" link2="AR5_5_07L_link3" reason="Adjacent"/>
+    <disable_collisions link1="AR5_5_07L_link2" link2="AR5_5_07L_link4" reason="Never"/>
+    <disable_collisions link1="AR5_5_07L_link2" link2="AR5_5_07L_link5" reason="Never"/>
+    <disable_collisions link1="AR5_5_07L_link2" link2="AR5_5_07L_link6" reason="Never"/>
+    <disable_collisions link1="AR5_5_07L_link2" link2="AR5_5_07L_link7" reason="Never"/>
+    <disable_collisions link1="AR5_5_07L_link2" link2="AR5_5_07R_base" reason="Never"/>
+    <disable_collisions link1="AR5_5_07L_link2" link2="AR5_5_07R_link1" reason="Never"/>
+    <disable_collisions link1="AR5_5_07L_link2" link2="AR5_5_07R_link2" reason="Never"/>
+    <disable_collisions link1="AR5_5_07L_link2" link2="AR5_5_07R_link3" reason="Never"/>
+    <disable_collisions link1="AR5_5_07L_link2" link2="AR5_5_07R_link4" reason="Never"/>
+    <disable_collisions link1="AR5_5_07L_link2" link2="AR5_5_07R_link5" reason="Never"/>
+    <disable_collisions link1="AR5_5_07L_link2" link2="AR5_5_07R_link6" reason="Never"/>
+    <disable_collisions link1="AR5_5_07L_link2" link2="AR5_5_07R_link7" reason="Never"/>
+    <disable_collisions link1="AR5_5_07L_link2" link2="Head_Link1" reason="Never"/>
+    <disable_collisions link1="AR5_5_07L_link2" link2="Lleft_pad" reason="Never"/>
+    <disable_collisions link1="AR5_5_07L_link2" link2="Lleftinn_Link" reason="Never"/>
+    <disable_collisions link1="AR5_5_07L_link2" link2="Lright_pad" reason="Never"/>
+    <disable_collisions link1="AR5_5_07L_link2" link2="Lrightinn_Link" reason="Never"/>
+    <disable_collisions link1="AR5_5_07L_link2" link2="Trunk_Link2" reason="Never"/>
+    <disable_collisions link1="AR5_5_07L_link2" link2="Trunk_Link3" reason="Never"/>
+    <disable_collisions link1="AR5_5_07L_link2" link2="Trunk_Link4" reason="Never"/>
+    <disable_collisions link1="AR5_5_07L_link2" link2="chassis_right_Link" reason="Never"/>
+    <disable_collisions link1="AR5_5_07L_link3" link2="AR5_5_07L_link4" reason="Adjacent"/>
+    <disable_collisions link1="AR5_5_07L_link3" link2="AR5_5_07L_link5" reason="Never"/>
+    <disable_collisions link1="AR5_5_07L_link3" link2="AR5_5_07L_link6" reason="Never"/>
+    <disable_collisions link1="AR5_5_07L_link3" link2="AR5_5_07L_link7" reason="Never"/>
+    <disable_collisions link1="AR5_5_07L_link3" link2="AR5_5_07R_base" reason="Never"/>
+    <disable_collisions link1="AR5_5_07L_link3" link2="AR5_5_07R_link1" reason="Never"/>
+    <disable_collisions link1="AR5_5_07L_link3" link2="AR5_5_07R_link2" reason="Never"/>
+    <disable_collisions link1="AR5_5_07L_link3" link2="AR5_5_07R_link3" reason="Never"/>
+    <disable_collisions link1="AR5_5_07L_link3" link2="AR5_5_07R_link4" reason="Never"/>
+    <disable_collisions link1="AR5_5_07L_link3" link2="Head_Link1" reason="Never"/>
+    <disable_collisions link1="AR5_5_07L_link3" link2="Lbase_link" reason="Never"/>
+    <disable_collisions link1="AR5_5_07L_link3" link2="Lleft_kckle" reason="Never"/>
+    <disable_collisions link1="AR5_5_07L_link3" link2="Lleft_pad" reason="Never"/>
+    <disable_collisions link1="AR5_5_07L_link3" link2="Lleftinn_Link" reason="Never"/>
+    <disable_collisions link1="AR5_5_07L_link3" link2="Lleftout_Link" reason="Never"/>
+    <disable_collisions link1="AR5_5_07L_link3" link2="Lright_kckle" reason="Never"/>
+    <disable_collisions link1="AR5_5_07L_link3" link2="Lright_pad" reason="Never"/>
+    <disable_collisions link1="AR5_5_07L_link3" link2="Lrightinn_Link" reason="Never"/>
+    <disable_collisions link1="AR5_5_07L_link3" link2="Lrightout_Link" reason="Never"/>
+    <disable_collisions link1="AR5_5_07L_link3" link2="Trunk_Link2" reason="Never"/>
+    <disable_collisions link1="AR5_5_07L_link3" link2="Trunk_Link3" reason="Never"/>
+    <disable_collisions link1="AR5_5_07L_link3" link2="left_flange_link" reason="Never"/>
+    <disable_collisions link1="AR5_5_07L_link4" link2="AR5_5_07L_link5" reason="Adjacent"/>
+    <disable_collisions link1="AR5_5_07L_link4" link2="AR5_5_07L_link6" reason="Never"/>
+    <disable_collisions link1="AR5_5_07L_link4" link2="AR5_5_07L_link7" reason="Never"/>
+    <disable_collisions link1="AR5_5_07L_link4" link2="AR5_5_07R_base" reason="Never"/>
+    <disable_collisions link1="AR5_5_07L_link4" link2="AR5_5_07R_link1" reason="Never"/>
+    <disable_collisions link1="AR5_5_07L_link4" link2="AR5_5_07R_link2" reason="Never"/>
+    <disable_collisions link1="AR5_5_07L_link4" link2="AR5_5_07R_link3" reason="Never"/>
+    <disable_collisions link1="AR5_5_07L_link4" link2="AR5_5_07R_link4" reason="Never"/>
+    <disable_collisions link1="AR5_5_07L_link4" link2="Head_Link1" reason="Never"/>
+    <disable_collisions link1="AR5_5_07L_link4" link2="Lbase_link" reason="Never"/>
+    <disable_collisions link1="AR5_5_07L_link4" link2="Lleft_kckle" reason="Never"/>
+    <disable_collisions link1="AR5_5_07L_link4" link2="Lleft_pad" reason="Never"/>
+    <disable_collisions link1="AR5_5_07L_link4" link2="Lleftinn_Link" reason="Never"/>
+    <disable_collisions link1="AR5_5_07L_link4" link2="Lleftout_Link" reason="Never"/>
+    <disable_collisions link1="AR5_5_07L_link4" link2="Lright_kckle" reason="Never"/>
+    <disable_collisions link1="AR5_5_07L_link4" link2="Lright_pad" reason="Never"/>
+    <disable_collisions link1="AR5_5_07L_link4" link2="Lrightinn_Link" reason="Never"/>
+    <disable_collisions link1="AR5_5_07L_link4" link2="Lrightout_Link" reason="Never"/>
+    <disable_collisions link1="AR5_5_07L_link4" link2="Trunk_Link3" reason="Never"/>
+    <disable_collisions link1="AR5_5_07L_link4" link2="left_flange_link" reason="Never"/>
+    <disable_collisions link1="AR5_5_07L_link5" link2="AR5_5_07L_link6" reason="Adjacent"/>
+    <disable_collisions link1="AR5_5_07L_link5" link2="AR5_5_07R_base" reason="Never"/>
+    <disable_collisions link1="AR5_5_07L_link5" link2="AR5_5_07R_link1" reason="Never"/>
+    <disable_collisions link1="AR5_5_07L_link5" link2="AR5_5_07R_link2" reason="Never"/>
+    <disable_collisions link1="AR5_5_07L_link5" link2="AR5_5_07R_link3" reason="Never"/>
+    <disable_collisions link1="AR5_5_07L_link5" link2="Lbase_link" reason="Never"/>
+    <disable_collisions link1="AR5_5_07L_link5" link2="Lleft_kckle" reason="Never"/>
+    <disable_collisions link1="AR5_5_07L_link5" link2="Lleft_pad" reason="Never"/>
+    <disable_collisions link1="AR5_5_07L_link5" link2="Lleftinn_Link" reason="Never"/>
+    <disable_collisions link1="AR5_5_07L_link5" link2="Lleftout_Link" reason="Never"/>
+    <disable_collisions link1="AR5_5_07L_link5" link2="Lright_kckle" reason="Never"/>
+    <disable_collisions link1="AR5_5_07L_link5" link2="Lright_pad" reason="Never"/>
+    <disable_collisions link1="AR5_5_07L_link5" link2="Lrightinn_Link" reason="Never"/>
+    <disable_collisions link1="AR5_5_07L_link5" link2="Lrightout_Link" reason="Never"/>
+    <disable_collisions link1="AR5_5_07L_link5" link2="left_flange_link" reason="Never"/>
+    <disable_collisions link1="AR5_5_07L_link6" link2="AR5_5_07L_link7" reason="Adjacent"/>
+    <disable_collisions link1="AR5_5_07L_link6" link2="AR5_5_07R_base" reason="Never"/>
+    <disable_collisions link1="AR5_5_07L_link6" link2="AR5_5_07R_link1" reason="Never"/>
+    <disable_collisions link1="AR5_5_07L_link6" link2="AR5_5_07R_link2" reason="Never"/>
+    <disable_collisions link1="AR5_5_07L_link6" link2="Lbase_link" reason="Never"/>
+    <disable_collisions link1="AR5_5_07L_link6" link2="Lleft_kckle" reason="Never"/>
+    <disable_collisions link1="AR5_5_07L_link6" link2="Lleft_pad" reason="Never"/>
+    <disable_collisions link1="AR5_5_07L_link6" link2="Lleftinn_Link" reason="Never"/>
+    <disable_collisions link1="AR5_5_07L_link6" link2="Lleftout_Link" reason="Never"/>
+    <disable_collisions link1="AR5_5_07L_link6" link2="Lright_kckle" reason="Never"/>
+    <disable_collisions link1="AR5_5_07L_link6" link2="Lright_pad" reason="Never"/>
+    <disable_collisions link1="AR5_5_07L_link6" link2="Lrightinn_Link" reason="Never"/>
+    <disable_collisions link1="AR5_5_07L_link6" link2="Lrightout_Link" reason="Never"/>
+    <disable_collisions link1="AR5_5_07L_link6" link2="left_flange_link" reason="Never"/>
+    <disable_collisions link1="AR5_5_07L_link7" link2="AR5_5_07R_link1" reason="Never"/>
+    <disable_collisions link1="AR5_5_07L_link7" link2="AR5_5_07R_link2" reason="Never"/>
+    <disable_collisions link1="AR5_5_07L_link7" link2="Lbase_link" reason="Never"/>
+    <disable_collisions link1="AR5_5_07L_link7" link2="Lleft_kckle" reason="Never"/>
+    <disable_collisions link1="AR5_5_07L_link7" link2="Lleft_pad" reason="Never"/>
+    <disable_collisions link1="AR5_5_07L_link7" link2="Lleftinn_Link" reason="Never"/>
+    <disable_collisions link1="AR5_5_07L_link7" link2="Lleftout_Link" reason="Never"/>
+    <disable_collisions link1="AR5_5_07L_link7" link2="Lright_kckle" reason="Never"/>
+    <disable_collisions link1="AR5_5_07L_link7" link2="Lright_pad" reason="Never"/>
+    <disable_collisions link1="AR5_5_07L_link7" link2="Lrightinn_Link" reason="Never"/>
+    <disable_collisions link1="AR5_5_07L_link7" link2="Lrightout_Link" reason="Never"/>
+    <disable_collisions link1="AR5_5_07L_link7" link2="left_flange_link" reason="Adjacent"/>
+    <disable_collisions link1="AR5_5_07R_base" link2="AR5_5_07R_link1" reason="Adjacent"/>
+    <disable_collisions link1="AR5_5_07R_base" link2="AR5_5_07R_link2" reason="Never"/>
+    <disable_collisions link1="AR5_5_07R_base" link2="AR5_5_07R_link3" reason="Never"/>
+    <disable_collisions link1="AR5_5_07R_base" link2="AR5_5_07R_link4" reason="Never"/>
+    <disable_collisions link1="AR5_5_07R_base" link2="Head_Link1" reason="Never"/>
+    <disable_collisions link1="AR5_5_07R_base" link2="Head_Link2" reason="Never"/>
+    <disable_collisions link1="AR5_5_07R_base" link2="Trunk_Link1" reason="Never"/>
+    <disable_collisions link1="AR5_5_07R_base" link2="Trunk_Link2" reason="Never"/>
+    <disable_collisions link1="AR5_5_07R_base" link2="Trunk_Link3" reason="Never"/>
+    <disable_collisions link1="AR5_5_07R_base" link2="Trunk_Link4" reason="Adjacent"/>
+    <disable_collisions link1="AR5_5_07R_base" link2="chassis_left_Link" reason="Never"/>
+    <disable_collisions link1="AR5_5_07R_base" link2="trunk_base_link" reason="Never"/>
+    <disable_collisions link1="AR5_5_07R_link1" link2="AR5_5_07R_link2" reason="Adjacent"/>
+    <disable_collisions link1="AR5_5_07R_link1" link2="AR5_5_07R_link3" reason="Never"/>
+    <disable_collisions link1="AR5_5_07R_link1" link2="AR5_5_07R_link4" reason="Never"/>
+    <disable_collisions link1="AR5_5_07R_link1" link2="AR5_5_07R_link5" reason="Never"/>
+    <disable_collisions link1="AR5_5_07R_link1" link2="AR5_5_07R_link6" reason="Never"/>
+    <disable_collisions link1="AR5_5_07R_link1" link2="AR5_5_07R_link7" reason="Never"/>
+    <disable_collisions link1="AR5_5_07R_link1" link2="Head_Link1" reason="Never"/>
+    <disable_collisions link1="AR5_5_07R_link1" link2="Head_Link2" reason="Never"/>
+    <disable_collisions link1="AR5_5_07R_link1" link2="Rleft_pad" reason="Never"/>
+    <disable_collisions link1="AR5_5_07R_link1" link2="Rright_pad" reason="Never"/>
+    <disable_collisions link1="AR5_5_07R_link1" link2="Trunk_Link1" reason="Never"/>
+    <disable_collisions link1="AR5_5_07R_link1" link2="Trunk_Link2" reason="Never"/>
+    <disable_collisions link1="AR5_5_07R_link1" link2="Trunk_Link3" reason="Never"/>
+    <disable_collisions link1="AR5_5_07R_link1" link2="Trunk_Link4" reason="Never"/>
+    <disable_collisions link1="AR5_5_07R_link1" link2="chassis_left_Link" reason="Never"/>
+    <disable_collisions link1="AR5_5_07R_link1" link2="left_flange_link" reason="Never"/>
+    <disable_collisions link1="AR5_5_07R_link2" link2="AR5_5_07R_link3" reason="Adjacent"/>
+    <disable_collisions link1="AR5_5_07R_link2" link2="AR5_5_07R_link4" reason="Never"/>
+    <disable_collisions link1="AR5_5_07R_link2" link2="AR5_5_07R_link5" reason="Never"/>
+    <disable_collisions link1="AR5_5_07R_link2" link2="AR5_5_07R_link6" reason="Never"/>
+    <disable_collisions link1="AR5_5_07R_link2" link2="AR5_5_07R_link7" reason="Never"/>
+    <disable_collisions link1="AR5_5_07R_link2" link2="Head_Link1" reason="Never"/>
+    <disable_collisions link1="AR5_5_07R_link2" link2="Rleft_pad" reason="Never"/>
+    <disable_collisions link1="AR5_5_07R_link2" link2="Rleftinn_Link" reason="Never"/>
+    <disable_collisions link1="AR5_5_07R_link2" link2="Rright_pad" reason="Never"/>
+    <disable_collisions link1="AR5_5_07R_link2" link2="Trunk_Link2" reason="Never"/>
+    <disable_collisions link1="AR5_5_07R_link2" link2="Trunk_Link3" reason="Never"/>
+    <disable_collisions link1="AR5_5_07R_link2" link2="Trunk_Link4" reason="Never"/>
+    <disable_collisions link1="AR5_5_07R_link2" link2="chassis_left_Link" reason="Never"/>
+    <disable_collisions link1="AR5_5_07R_link2" link2="left_flange_link" reason="Never"/>
+    <disable_collisions link1="AR5_5_07R_link3" link2="AR5_5_07R_link4" reason="Adjacent"/>
+    <disable_collisions link1="AR5_5_07R_link3" link2="AR5_5_07R_link5" reason="Never"/>
+    <disable_collisions link1="AR5_5_07R_link3" link2="AR5_5_07R_link6" reason="Never"/>
+    <disable_collisions link1="AR5_5_07R_link3" link2="AR5_5_07R_link7" reason="Never"/>
+    <disable_collisions link1="AR5_5_07R_link3" link2="Head_Link1" reason="Never"/>
+    <disable_collisions link1="AR5_5_07R_link3" link2="Rbase_link" reason="Never"/>
+    <disable_collisions link1="AR5_5_07R_link3" link2="Rleft_kckle" reason="Never"/>
+    <disable_collisions link1="AR5_5_07R_link3" link2="Rleft_pad" reason="Never"/>
+    <disable_collisions link1="AR5_5_07R_link3" link2="Rleftinn_Link" reason="Never"/>
+    <disable_collisions link1="AR5_5_07R_link3" link2="Rleftout_Link" reason="Never"/>
+    <disable_collisions link1="AR5_5_07R_link3" link2="Rright_kckle" reason="Never"/>
+    <disable_collisions link1="AR5_5_07R_link3" link2="Rright_pad" reason="Never"/>
+    <disable_collisions link1="AR5_5_07R_link3" link2="Rrightinn_Link" reason="Never"/>
+    <disable_collisions link1="AR5_5_07R_link3" link2="Rrightout_Link" reason="Never"/>
+    <disable_collisions link1="AR5_5_07R_link3" link2="Trunk_Link2" reason="Never"/>
+    <disable_collisions link1="AR5_5_07R_link3" link2="Trunk_Link3" reason="Never"/>
+    <disable_collisions link1="AR5_5_07R_link3" link2="right_flange_link" reason="Never"/>
+    <disable_collisions link1="AR5_5_07R_link4" link2="AR5_5_07R_link5" reason="Adjacent"/>
+    <disable_collisions link1="AR5_5_07R_link4" link2="AR5_5_07R_link6" reason="Never"/>
+    <disable_collisions link1="AR5_5_07R_link4" link2="AR5_5_07R_link7" reason="Never"/>
+    <disable_collisions link1="AR5_5_07R_link4" link2="Head_Link1" reason="Never"/>
+    <disable_collisions link1="AR5_5_07R_link4" link2="Rbase_link" reason="Never"/>
+    <disable_collisions link1="AR5_5_07R_link4" link2="Rleft_kckle" reason="Never"/>
+    <disable_collisions link1="AR5_5_07R_link4" link2="Rleft_pad" reason="Never"/>
+    <disable_collisions link1="AR5_5_07R_link4" link2="Rleftinn_Link" reason="Never"/>
+    <disable_collisions link1="AR5_5_07R_link4" link2="Rleftout_Link" reason="Never"/>
+    <disable_collisions link1="AR5_5_07R_link4" link2="Rright_kckle" reason="Never"/>
+    <disable_collisions link1="AR5_5_07R_link4" link2="Rright_pad" reason="Never"/>
+    <disable_collisions link1="AR5_5_07R_link4" link2="Rrightinn_Link" reason="Never"/>
+    <disable_collisions link1="AR5_5_07R_link4" link2="Rrightout_Link" reason="Never"/>
+    <disable_collisions link1="AR5_5_07R_link4" link2="Trunk_Link2" reason="Never"/>
+    <disable_collisions link1="AR5_5_07R_link4" link2="Trunk_Link3" reason="Never"/>
+    <disable_collisions link1="AR5_5_07R_link4" link2="right_flange_link" reason="Never"/>
+    <disable_collisions link1="AR5_5_07R_link5" link2="AR5_5_07R_link6" reason="Adjacent"/>
+    <disable_collisions link1="AR5_5_07R_link5" link2="Rbase_link" reason="Never"/>
+    <disable_collisions link1="AR5_5_07R_link5" link2="Rleft_kckle" reason="Never"/>
+    <disable_collisions link1="AR5_5_07R_link5" link2="Rleft_pad" reason="Never"/>
+    <disable_collisions link1="AR5_5_07R_link5" link2="Rleftinn_Link" reason="Never"/>
+    <disable_collisions link1="AR5_5_07R_link5" link2="Rleftout_Link" reason="Never"/>
+    <disable_collisions link1="AR5_5_07R_link5" link2="Rright_kckle" reason="Never"/>
+    <disable_collisions link1="AR5_5_07R_link5" link2="Rright_pad" reason="Never"/>
+    <disable_collisions link1="AR5_5_07R_link5" link2="Rrightinn_Link" reason="Never"/>
+    <disable_collisions link1="AR5_5_07R_link5" link2="Rrightout_Link" reason="Never"/>
+    <disable_collisions link1="AR5_5_07R_link5" link2="right_flange_link" reason="Never"/>
+    <disable_collisions link1="AR5_5_07R_link6" link2="AR5_5_07R_link7" reason="Adjacent"/>
+    <disable_collisions link1="AR5_5_07R_link6" link2="Rbase_link" reason="Never"/>
+    <disable_collisions link1="AR5_5_07R_link6" link2="Rleft_kckle" reason="Never"/>
+    <disable_collisions link1="AR5_5_07R_link6" link2="Rleft_pad" reason="Never"/>
+    <disable_collisions link1="AR5_5_07R_link6" link2="Rleftinn_Link" reason="Never"/>
+    <disable_collisions link1="AR5_5_07R_link6" link2="Rleftout_Link" reason="Never"/>
+    <disable_collisions link1="AR5_5_07R_link6" link2="Rright_kckle" reason="Never"/>
+    <disable_collisions link1="AR5_5_07R_link6" link2="Rright_pad" reason="Never"/>
+    <disable_collisions link1="AR5_5_07R_link6" link2="Rrightinn_Link" reason="Never"/>
+    <disable_collisions link1="AR5_5_07R_link6" link2="Rrightout_Link" reason="Never"/>
+    <disable_collisions link1="AR5_5_07R_link6" link2="right_flange_link" reason="Never"/>
+    <disable_collisions link1="AR5_5_07R_link7" link2="Rbase_link" reason="Never"/>
+    <disable_collisions link1="AR5_5_07R_link7" link2="Rleft_kckle" reason="Never"/>
+    <disable_collisions link1="AR5_5_07R_link7" link2="Rleft_pad" reason="Never"/>
+    <disable_collisions link1="AR5_5_07R_link7" link2="Rleftinn_Link" reason="Never"/>
+    <disable_collisions link1="AR5_5_07R_link7" link2="Rleftout_Link" reason="Never"/>
+    <disable_collisions link1="AR5_5_07R_link7" link2="Rright_kckle" reason="Never"/>
+    <disable_collisions link1="AR5_5_07R_link7" link2="Rright_pad" reason="Never"/>
+    <disable_collisions link1="AR5_5_07R_link7" link2="Rrightinn_Link" reason="Never"/>
+    <disable_collisions link1="AR5_5_07R_link7" link2="Rrightout_Link" reason="Never"/>
+    <disable_collisions link1="AR5_5_07R_link7" link2="right_flange_link" reason="Adjacent"/>
+    <disable_collisions link1="Head_Link1" link2="Head_Link2" reason="Adjacent"/>
+    <disable_collisions link1="Head_Link1" link2="Trunk_Link1" reason="Never"/>
+    <disable_collisions link1="Head_Link1" link2="Trunk_Link2" reason="Never"/>
+    <disable_collisions link1="Head_Link1" link2="Trunk_Link3" reason="Never"/>
+    <disable_collisions link1="Head_Link1" link2="Trunk_Link4" reason="Adjacent"/>
+    <disable_collisions link1="Head_Link1" link2="chassis_left_Link" reason="Never"/>
+    <disable_collisions link1="Head_Link1" link2="chassis_right_Link" reason="Never"/>
+    <disable_collisions link1="Head_Link1" link2="trunk_base_link" reason="Never"/>
+    <disable_collisions link1="Head_Link2" link2="Trunk_Link1" reason="Never"/>
+    <disable_collisions link1="Head_Link2" link2="Trunk_Link2" reason="Never"/>
+    <disable_collisions link1="Head_Link2" link2="Trunk_Link3" reason="Never"/>
+    <disable_collisions link1="Head_Link2" link2="Trunk_Link4" reason="Never"/>
+    <disable_collisions link1="Head_Link2" link2="chassis_left_Link" reason="Never"/>
+    <disable_collisions link1="Head_Link2" link2="chassis_right_Link" reason="Never"/>
+    <disable_collisions link1="Head_Link2" link2="trunk_base_link" reason="Never"/>
+    <disable_collisions link1="Lbase_link" link2="Lleft_kckle" reason="Adjacent"/>
+    <disable_collisions link1="Lbase_link" link2="Lleft_pad" reason="Never"/>
+    <disable_collisions link1="Lbase_link" link2="Lleftinn_Link" reason="Never"/>
+    <disable_collisions link1="Lbase_link" link2="Lleftout_Link" reason="Adjacent"/>
+    <disable_collisions link1="Lbase_link" link2="Lright_kckle" reason="Adjacent"/>
+    <disable_collisions link1="Lbase_link" link2="Lright_pad" reason="Never"/>
+    <disable_collisions link1="Lbase_link" link2="Lrightinn_Link" reason="Never"/>
+    <disable_collisions link1="Lbase_link" link2="Lrightout_Link" reason="Adjacent"/>
+    <disable_collisions link1="Lbase_link" link2="left_flange_link" reason="Adjacent"/>
+    <disable_collisions link1="Lleft_kckle" link2="Lleft_pad" reason="Never"/>
+    <disable_collisions link1="Lleft_kckle" link2="Lleftinn_Link" reason="Default"/>
+    <disable_collisions link1="Lleft_kckle" link2="Lleftout_Link" reason="Never"/>
+    <disable_collisions link1="Lleft_kckle" link2="Lright_kckle" reason="Never"/>
+    <disable_collisions link1="Lleft_kckle" link2="Lright_pad" reason="Never"/>
+    <disable_collisions link1="Lleft_kckle" link2="Lrightinn_Link" reason="Never"/>
+    <disable_collisions link1="Lleft_kckle" link2="Lrightout_Link" reason="Never"/>
+    <disable_collisions link1="Lleft_kckle" link2="Rleft_pad" reason="Never"/>
+    <disable_collisions link1="Lleft_kckle" link2="left_flange_link" reason="Never"/>
+    <disable_collisions link1="Lleft_pad" link2="Lleftinn_Link" reason="Adjacent"/>
+    <disable_collisions link1="Lleft_pad" link2="Lleftout_Link" reason="Never"/>
+    <disable_collisions link1="Lleft_pad" link2="Lright_kckle" reason="Never"/>
+    <disable_collisions link1="Lleft_pad" link2="Lright_pad" reason="Default"/>
+    <disable_collisions link1="Lleft_pad" link2="Lrightinn_Link" reason="Default"/>
+    <disable_collisions link1="Lleft_pad" link2="Lrightout_Link" reason="Never"/>
+    <disable_collisions link1="Lleft_pad" link2="Rleft_pad" reason="Never"/>
+    <disable_collisions link1="Lleft_pad" link2="Rleftinn_Link" reason="Never"/>
+    <disable_collisions link1="Lleft_pad" link2="Rleftout_Link" reason="Never"/>
+    <disable_collisions link1="Lleft_pad" link2="Rright_pad" reason="Never"/>
+    <disable_collisions link1="Lleft_pad" link2="Rrightinn_Link" reason="Never"/>
+    <disable_collisions link1="Lleft_pad" link2="Rrightout_Link" reason="Never"/>
+    <disable_collisions link1="Lleft_pad" link2="left_flange_link" reason="Never"/>
+    <disable_collisions link1="Lleftinn_Link" link2="Lleftout_Link" reason="Adjacent"/>
+    <disable_collisions link1="Lleftinn_Link" link2="Lright_kckle" reason="Never"/>
+    <disable_collisions link1="Lleftinn_Link" link2="Lright_pad" reason="Default"/>
+    <disable_collisions link1="Lleftinn_Link" link2="Lrightinn_Link" reason="Default"/>
+    <disable_collisions link1="Lleftinn_Link" link2="Lrightout_Link" reason="Never"/>
+    <disable_collisions link1="Lleftinn_Link" link2="left_flange_link" reason="Never"/>
+    <disable_collisions link1="Lleftout_Link" link2="Lright_kckle" reason="Never"/>
+    <disable_collisions link1="Lleftout_Link" link2="Lright_pad" reason="Never"/>
+    <disable_collisions link1="Lleftout_Link" link2="Lrightinn_Link" reason="Never"/>
+    <disable_collisions link1="Lleftout_Link" link2="Lrightout_Link" reason="Never"/>
+    <disable_collisions link1="Lleftout_Link" link2="Rright_pad" reason="Never"/>
+    <disable_collisions link1="Lleftout_Link" link2="Rrightout_Link" reason="Never"/>
+    <disable_collisions link1="Lleftout_Link" link2="left_flange_link" reason="Never"/>
+    <disable_collisions link1="Lright_kckle" link2="Lright_pad" reason="Never"/>
+    <disable_collisions link1="Lright_kckle" link2="Lrightinn_Link" reason="Never"/>
+    <disable_collisions link1="Lright_kckle" link2="Lrightout_Link" reason="Never"/>
+    <disable_collisions link1="Lright_kckle" link2="Rleft_pad" reason="Never"/>
+    <disable_collisions link1="Lright_kckle" link2="Rright_pad" reason="Never"/>
+    <disable_collisions link1="Lright_kckle" link2="Rrightout_Link" reason="Never"/>
+    <disable_collisions link1="Lright_kckle" link2="left_flange_link" reason="Never"/>
+    <disable_collisions link1="Lright_pad" link2="Lrightinn_Link" reason="Adjacent"/>
+    <disable_collisions link1="Lright_pad" link2="Lrightout_Link" reason="Never"/>
+    <disable_collisions link1="Lright_pad" link2="Rright_pad" reason="Never"/>
+    <disable_collisions link1="Lright_pad" link2="Rrightinn_Link" reason="Never"/>
+    <disable_collisions link1="Lright_pad" link2="left_flange_link" reason="Never"/>
+    <disable_collisions link1="Lrightinn_Link" link2="Lrightout_Link" reason="Adjacent"/>
+    <disable_collisions link1="Lrightinn_Link" link2="Rright_pad" reason="Never"/>
+    <disable_collisions link1="Lrightinn_Link" link2="left_flange_link" reason="Never"/>
+    <disable_collisions link1="Lrightout_Link" link2="Rleft_pad" reason="Never"/>
+    <disable_collisions link1="Lrightout_Link" link2="Rright_pad" reason="Never"/>
+    <disable_collisions link1="Lrightout_Link" link2="Rrightout_Link" reason="Never"/>
+    <disable_collisions link1="Lrightout_Link" link2="left_flange_link" reason="Never"/>
+    <disable_collisions link1="Rbase_link" link2="Rleft_kckle" reason="Adjacent"/>
+    <disable_collisions link1="Rbase_link" link2="Rleft_pad" reason="Never"/>
+    <disable_collisions link1="Rbase_link" link2="Rleftinn_Link" reason="Never"/>
+    <disable_collisions link1="Rbase_link" link2="Rleftout_Link" reason="Adjacent"/>
+    <disable_collisions link1="Rbase_link" link2="Rright_kckle" reason="Adjacent"/>
+    <disable_collisions link1="Rbase_link" link2="Rright_pad" reason="Never"/>
+    <disable_collisions link1="Rbase_link" link2="Rrightinn_Link" reason="Never"/>
+    <disable_collisions link1="Rbase_link" link2="Rrightout_Link" reason="Adjacent"/>
+    <disable_collisions link1="Rbase_link" link2="right_flange_link" reason="Adjacent"/>
+    <disable_collisions link1="Rleft_kckle" link2="Rleft_pad" reason="Never"/>
+    <disable_collisions link1="Rleft_kckle" link2="Rleftinn_Link" reason="Default"/>
+    <disable_collisions link1="Rleft_kckle" link2="Rleftout_Link" reason="Never"/>
+    <disable_collisions link1="Rleft_kckle" link2="Rright_kckle" reason="Never"/>
+    <disable_collisions link1="Rleft_kckle" link2="Rright_pad" reason="Never"/>
+    <disable_collisions link1="Rleft_kckle" link2="Rrightinn_Link" reason="Never"/>
+    <disable_collisions link1="Rleft_kckle" link2="Rrightout_Link" reason="Never"/>
+    <disable_collisions link1="Rleft_kckle" link2="right_flange_link" reason="Never"/>
+    <disable_collisions link1="Rleft_pad" link2="Rleftinn_Link" reason="Adjacent"/>
+    <disable_collisions link1="Rleft_pad" link2="Rleftout_Link" reason="Never"/>
+    <disable_collisions link1="Rleft_pad" link2="Rright_kckle" reason="Never"/>
+    <disable_collisions link1="Rleft_pad" link2="Rright_pad" reason="Default"/>
+    <disable_collisions link1="Rleft_pad" link2="Rrightinn_Link" reason="Default"/>
+    <disable_collisions link1="Rleft_pad" link2="Rrightout_Link" reason="Never"/>
+    <disable_collisions link1="Rleft_pad" link2="right_flange_link" reason="Never"/>
+    <disable_collisions link1="Rleftinn_Link" link2="Rleftout_Link" reason="Adjacent"/>
+    <disable_collisions link1="Rleftinn_Link" link2="Rright_kckle" reason="Never"/>
+    <disable_collisions link1="Rleftinn_Link" link2="Rright_pad" reason="Default"/>
+    <disable_collisions link1="Rleftinn_Link" link2="Rrightinn_Link" reason="Default"/>
+    <disable_collisions link1="Rleftinn_Link" link2="Rrightout_Link" reason="Never"/>
+    <disable_collisions link1="Rleftinn_Link" link2="right_flange_link" reason="Never"/>
+    <disable_collisions link1="Rleftout_Link" link2="Rright_kckle" reason="Never"/>
+    <disable_collisions link1="Rleftout_Link" link2="Rright_pad" reason="Never"/>
+    <disable_collisions link1="Rleftout_Link" link2="Rrightinn_Link" reason="Never"/>
+    <disable_collisions link1="Rleftout_Link" link2="Rrightout_Link" reason="Never"/>
+    <disable_collisions link1="Rleftout_Link" link2="right_flange_link" reason="Never"/>
+    <disable_collisions link1="Rright_kckle" link2="Rright_pad" reason="Never"/>
+    <disable_collisions link1="Rright_kckle" link2="Rrightinn_Link" reason="Never"/>
+    <disable_collisions link1="Rright_kckle" link2="Rrightout_Link" reason="Never"/>
+    <disable_collisions link1="Rright_kckle" link2="right_flange_link" reason="Never"/>
+    <disable_collisions link1="Rright_pad" link2="Rrightinn_Link" reason="Adjacent"/>
+    <disable_collisions link1="Rright_pad" link2="Rrightout_Link" reason="Never"/>
+    <disable_collisions link1="Rright_pad" link2="right_flange_link" reason="Never"/>
+    <disable_collisions link1="Rrightinn_Link" link2="Rrightout_Link" reason="Adjacent"/>
+    <disable_collisions link1="Rrightinn_Link" link2="right_flange_link" reason="Never"/>
+    <disable_collisions link1="Rrightout_Link" link2="right_flange_link" reason="Never"/>
+    <disable_collisions link1="Trunk_Link1" link2="Trunk_Link2" reason="Adjacent"/>
+    <disable_collisions link1="Trunk_Link1" link2="Trunk_Link3" reason="Never"/>
+    <disable_collisions link1="Trunk_Link1" link2="Trunk_Link4" reason="Never"/>
+    <disable_collisions link1="Trunk_Link1" link2="chassis_base_link" reason="Never"/>
+    <disable_collisions link1="Trunk_Link1" link2="chassis_left_Link" reason="Never"/>
+    <disable_collisions link1="Trunk_Link1" link2="chassis_right_Link" reason="Never"/>
+    <disable_collisions link1="Trunk_Link1" link2="trunk_base_link" reason="Adjacent"/>
+    <disable_collisions link1="Trunk_Link2" link2="Trunk_Link3" reason="Adjacent"/>
+    <disable_collisions link1="Trunk_Link2" link2="Trunk_Link4" reason="Never"/>
+    <disable_collisions link1="Trunk_Link2" link2="chassis_left_Link" reason="Never"/>
+    <disable_collisions link1="Trunk_Link2" link2="chassis_right_Link" reason="Never"/>
+    <disable_collisions link1="Trunk_Link2" link2="trunk_base_link" reason="Never"/>
+    <disable_collisions link1="Trunk_Link3" link2="Trunk_Link4" reason="Adjacent"/>
+    <disable_collisions link1="Trunk_Link3" link2="chassis_left_Link" reason="Never"/>
+    <disable_collisions link1="Trunk_Link3" link2="chassis_right_Link" reason="Never"/>
+    <disable_collisions link1="Trunk_Link3" link2="trunk_base_link" reason="Never"/>
+    <disable_collisions link1="Trunk_Link4" link2="chassis_left_Link" reason="Never"/>
+    <disable_collisions link1="Trunk_Link4" link2="chassis_right_Link" reason="Never"/>
+    <disable_collisions link1="chassis_base_link" link2="chassis_left_Link" reason="Adjacent"/>
+    <disable_collisions link1="chassis_base_link" link2="chassis_right_Link" reason="Adjacent"/>
+    <disable_collisions link1="chassis_base_link" link2="trunk_base_link" reason="Adjacent"/>
+    <disable_collisions link1="chassis_left_Link" link2="chassis_right_Link" reason="Never"/>
+    <disable_collisions link1="chassis_left_Link" link2="trunk_base_link" reason="Never"/>
+    <disable_collisions link1="chassis_right_Link" link2="trunk_base_link" reason="Never"/>
+</robot>

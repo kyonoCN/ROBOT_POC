@@ -1,0 +1,34 @@
+# ROS2 colcon build artifacts
+build/
+install/
+log/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
+.eggs/
+dist/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Robot model (large files, download separately)
+src/robot/robot_model/
+
+# Other large files
+*.bag
+*.db3
+*.usd
+*.USD
+
+# OS
+.DS_Store
+Thumbs.db

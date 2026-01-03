@@ -1,0 +1,83 @@
+# ============================================================
+# MoveIt Controller Configuration for Virtual Robot
+# Controller names are IDENTICAL to real robot (wheeled_humanoid_moveit)
+# This ensures seamless deployment from simulation to real hardware
+# ============================================================
+
+# Trajectory execution parameters (relaxed for simulation)
+trajectory_execution:
+  allowed_execution_duration_scaling: 2.0
+  allowed_goal_duration_margin: 2.0
+  allowed_start_tolerance: 0.1
+  execution_duration_monitoring: false
+  # 增加等待当前状态的超时时间（解决 "couldn't receive full current joint state" 问题）
+  controller_connection_timeout: 10.0
+
+moveit_controller_manager: moveit_simple_controller_manager/MoveItSimpleControllerManager
+
+moveit_simple_controller_manager:
+  controller_names:
+    - left_arm_controller
+    - right_arm_controller
+    - torso_controller
+    - head_controller
+    - left_gripper_controller
+    - right_gripper_controller
+
+  left_arm_controller:
+    type: FollowJointTrajectory
+    action_ns: follow_joint_trajectory
+    default: true
+    joints:
+      - AR5_5_07L_joint_1
+      - AR5_5_07L_joint_2
+      - AR5_5_07L_joint_3
+      - AR5_5_07L_joint_4
+      - AR5_5_07L_joint_5
+      - AR5_5_07L_joint_6
+      - AR5_5_07L_joint_7
+
+  right_arm_controller:
+    type: FollowJointTrajectory
+    action_ns: follow_joint_trajectory
+    default: true
+    joints:
+      - AR5_5_07R_joint_1
+      - AR5_5_07R_joint_2
+      - AR5_5_07R_joint_3
+      - AR5_5_07R_joint_4
+      - AR5_5_07R_joint_5
+      - AR5_5_07R_joint_6
+      - AR5_5_07R_joint_7
+
+  torso_controller:
+    type: FollowJointTrajectory
+    action_ns: follow_joint_trajectory
+    default: true
+    joints:
+      - Trunk_Joint1
+      - Trunk_Joint2
+      - Trunk_Joint3
+      - Trunk_Joint4
+
+  head_controller:
+    type: FollowJointTrajectory
+    action_ns: follow_joint_trajectory
+    default: true
+    joints:
+      - Head_Joint1
+      - Head_Joint2
+
+  left_gripper_controller:
+    type: FollowJointTrajectory
+    action_ns: follow_joint_trajectory
+    default: true
+    joints:
+      - Lfinger_joint
+
+  right_gripper_controller:
+    type: FollowJointTrajectory
+    action_ns: follow_joint_trajectory
+    default: true
+    joints:
+      - Rfinger_joint
