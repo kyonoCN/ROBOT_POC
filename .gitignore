@@ -20,14 +20,9 @@ dist/
 *.swo
 *~
 
-# Robot model (large files, download separately)
-src/robot/robot_model/
-
 # Other large files
 *.bag
 *.db3
-*.usd
-*.USD
 
 # OS
 .DS_Store
